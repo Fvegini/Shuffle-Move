@@ -982,7 +982,8 @@ public class ShuffleModel
    }
 
    public void recomputeIfKillMeowth() {
-      boolean recompute = "037MeowthEarlyGame".equals(getGradingModeManager().getCurrentGradingMode().getKey())
+      boolean recompute = "No037MeowthEarlyGame".equals(getGradingModeManager().getCurrentGradingMode().getKey())
+      // boolean recompute = "037MeowthEarlyGame".equals(getGradingModeManager().getCurrentGradingMode().getKey())
          && selectedResult.getNetScore().getMaximum() >= getRemainingHealth();
       if(recompute) {
          LOG.info("Meowth would die from the current move. Recomputing using the grading mode: " 

@@ -157,7 +157,8 @@ public class SimulationCore extends RecursiveAction {
       attackPowerUp = user.getAttackPowerUp();
       effectThreshold = user.getEffectThreshold();
       defaultGradingMode = user.getGradingModeManager().getDefaultGradingMode();
-      shouldComputeNextMove = "037MeowthEarlyGame".equals(user.getGradingModeManager().getCurrentGradingMode().getKey());
+      shouldComputeNextMove = "No037MeowthEarlyGame".equals(user.getGradingModeManager().getCurrentGradingMode().getKey());
+      // shouldComputeNextMove = "037MeowthEarlyGame".equals(user.getGradingModeManager().getCurrentGradingMode().getKey());
       mobileMode = user.isMobileMode();
    }
    
