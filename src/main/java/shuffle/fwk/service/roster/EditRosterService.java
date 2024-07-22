@@ -374,7 +374,7 @@ public class EditRosterService extends BaseService<EditRosterServiceUser> implem
       c.anchor = GridBagConstraints.LINE_END;
       c.weightx = 1.0;
       c.gridx++;
-      teamFilter = new JCheckBox(getString(KEY_TEAM));
+      teamFilter = new JCheckBox(getString(KEY_TEAM), true);
       JPanel teamFilterPanel = new JPanel(new BorderLayout());
       teamFilterPanel.add(teamFilter, BorderLayout.WEST);
       teamFilter.setToolTipText(getString(KEY_TEAM_TOOLTIP));

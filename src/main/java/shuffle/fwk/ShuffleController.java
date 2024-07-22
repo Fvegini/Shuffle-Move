@@ -228,11 +228,10 @@ public class ShuffleController extends Observable implements ShuffleViewUser, Sh
       private static String loadNewBoard(ShuffleController ctrl) {
          ctrl.getModel().startFakeProcessing();
          ctrl.getFrame().getUser().loadAll();
-   
+         LOG.info("processing");
          while (ctrl.getModel().isProcessing()) {
             try {
-               LOG.info("still processing");
-                Thread.sleep(50);
+               Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
