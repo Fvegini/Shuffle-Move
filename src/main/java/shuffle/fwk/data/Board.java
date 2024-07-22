@@ -159,13 +159,10 @@ public class Board {
          .mapToObj(i -> getSpeciesAt(i, Board.NUM_COLS))
          .collect(Collectors.toList());
 
-      // int coinCount = (int)lastColumn.stream()
-      //    .filter(s -> s == Species.COIN)
-      //    .count();
       int coinCount = (int)lastColumn.stream()
-         .filter(s -> s.getName().equals("Litwick"))
+         .filter(s -> s == Species.COIN)
          .count();
-      
+
       int woodCount = (int)lastColumn.stream()
          .filter(s -> s == Species.WOOD)
          .count();
@@ -176,8 +173,7 @@ public class Board {
 
       for(int i = 1; i < lastColumn.size(); i++) {
          Species currentSpecies = lastColumn.get(i);
-         if(currentSpecies.getName().equals("Litwick")) {
-         // if(currentSpecies == Species.COIN) {
+         if(currentSpecies == Species.COIN) {
                if(currentSpecies == lastColumn.get(i - 1)) {
                   groupCount++;
                }
