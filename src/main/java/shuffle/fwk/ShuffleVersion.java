@@ -32,7 +32,7 @@ public interface ShuffleVersion {
    /** The SubMinor version number. Each increment is a minor batch of tweaks and fixes. */
    public static final int VERSION_SUBMINOR = 2;
    /** The full version String which identifies the program's actual version. */
-   public static final String VERSION_FULL = String.format("v%d.%d.%d - Meowth Special", VERSION_MAJOR, VERSION_MINOR, VERSION_SUBMINOR);
+   public static final String VERSION_FULL = String.format("v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_SUBMINOR);
    /** Convenience array of version numbers for comparisons. */
    public static final int[] VERSION_ARRAY = new int[]{VERSION_MAJOR, VERSION_MINOR, VERSION_SUBMINOR};
    
