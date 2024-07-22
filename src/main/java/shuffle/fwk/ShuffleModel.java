@@ -253,6 +253,7 @@ public class ShuffleModel
       LOG.info("Loading the Board on the file: " + getBoardManager().getBoardPath());
       changed |= getConfigFactory().loadAllFromConfig();
       changed |= getBoardManager().loadFromConfig();
+      getBoardManager().getBoard().setRemainingMoves(getRemainingMoves());
       changed |= frozen;
       frozen = false;
       if (getRemainingMoves() <= 1) {
@@ -913,6 +914,7 @@ public class ShuffleModel
          public void run() {
             if (core.isCurrent()) {
                LOG.info(getString(KEY_SIMULATION_START));
+               LOG.info("Grading Mode: " + getCurrentGradingMode().getKey());
                forkJoinPool.execute(core);
             }
          }
@@ -962,6 +964,7 @@ public class ShuffleModel
             bestResults.addAll(results);
             selectedResult = bestResults.iterator().next();
             long startTime = selectedResult.getStartTime();
+            recomputeIfKillMeowth();
             changed = true;
             if (SwingUtilities.isEventDispatchThread()) {
                LOG.info(getString(KEY_SIMULATION_COMPLETE, endTime - startTime));
@@ -976,6 +979,17 @@ public class ShuffleModel
          }
       }
       return changed;
+   }
+
+   public void recomputeIfKillMeowth() {
+      boolean recompute = "037MeowthEarlyGame".equals(getGradingModeManager().getCurrentGradingMode().getKey())
+         && selectedResult.getNetScore().getMaximum() >= getRemainingHealth();
+      if(recompute) {
+         LOG.info("Meowth would die from the current move. Recomputing using the grading mode: " 
+            + getGradingModeManager().getDefaultGradingMode().getKey() + " to cash out any coins we can on the board.");
+         getGradingModeManager().setCurrentGradingMode(getGradingModeManager().getDefaultGradingMode());
+         computeNow();
+      }
    }
    
    /**
