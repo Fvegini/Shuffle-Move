@@ -188,6 +188,10 @@ public class NumberSpan extends Number implements Cloneable, Comparable<NumberSp
       }
       return ret;
    }
+
+   public NumberSpan put(NumberSpan other, double boost) {
+      return new NumberSpan(other.min * boost, other.max * boost, other.total * boost, 1);
+   }
    
    public NumberSpan put(int value, float likelihood) {
       if (likelihood < 0f) {

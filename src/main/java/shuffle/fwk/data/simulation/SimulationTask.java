@@ -77,7 +77,7 @@ public class SimulationTask extends RecursiveTask<SimulationState> {
    private int lastComboTime = -COMBO_DELAY;
    
    private boolean boardChanged = true;
-   
+
    /**
     * The current time for the simulation.
     */
@@ -1019,6 +1019,7 @@ public class SimulationTask extends RecursiveTask<SimulationState> {
    public NumberSpan getScoreFor(ActivateComboEffect comboEffect, int numCombos) {
       double comboMultiplier = getComboMultiplier(numCombos + 1);
       Species effectSpecies = getEffectSpecies(comboEffect.getCoords());
+      getState().addComboSpeciesList(effectSpecies);
       int basicScore = getBasicScoreFor(effectSpecies);
       double typeMod = getTypeModifier(effectSpecies);
       double numBlocksModifier = getNumBlocksMultiplier(comboEffect.getNumBlocks());

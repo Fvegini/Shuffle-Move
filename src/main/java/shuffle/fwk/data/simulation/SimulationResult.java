@@ -45,6 +45,7 @@ public class SimulationResult {
    private final NumberSpan numDisruptionsCleared;
    private final NumberSpan numCombosCleared;
    private NumberSpan rightSideGoldScore;
+   private NumberSpan megaBoostedScore;
    private int hash;
    private int moveNumber = 0;
    private final long startTime;
@@ -54,7 +55,7 @@ public class SimulationResult {
    
    public SimulationResult(List<Integer> sourceMove, Board resultBoard, NumberSpan givenScore, NumberSpan givenGold,
          NumberSpan progress, UUID id, NumberSpan blocksCleared, NumberSpan disruptionsCleared,
-         NumberSpan combosCleared, NumberSpan givenRightSideGoldScore, long startTime) {
+         NumberSpan combosCleared, NumberSpan givenRightSideGoldScore, NumberSpan givenMegaBoostedScore, long startTime) {
       if (resultBoard == null) {
          throw new NullPointerException("Cannot create a SimulaitonResult with a null board.");
       }
@@ -64,6 +65,7 @@ public class SimulationResult {
       score = givenScore.clone();
       gold = givenGold.clone();
       rightSideGoldScore = givenRightSideGoldScore.clone();
+      megaBoostedScore = givenMegaBoostedScore.clone();
       megaProgress = progress.clone();
       processUUID = id;
       move = sourceMove;
@@ -86,6 +88,7 @@ public class SimulationResult {
       result = prime * result + (score == null ? 0 : score.hashCode());
       result = prime * result + (gold == null ? 0 : gold.hashCode());
       result = prime * result + (rightSideGoldScore == null ? 0 : rightSideGoldScore.hashCode());
+      result = prime * result + (megaBoostedScore == null ? 0 : megaBoostedScore.hashCode());
       result = prime * result + (megaProgress == null ? 0 : megaProgress.hashCode());
       result = prime * result + (parent == null ? 0 : parent.hashCode());
       result = prime * result + (children == null ? 0 : children.hashCode());
@@ -121,6 +124,15 @@ public class SimulationResult {
    
    public NumberSpan getNetGold() {
       return gold;
+   }
+   
+
+   public NumberSpan getMegaBoostedScore() {
+      return megaBoostedScore;
+   }
+
+   public void setMegaBoostedScore(NumberSpan megaBoostedScore) {
+      this.megaBoostedScore =  megaBoostedScore;
    }
 
    public NumberSpan getRightSideGoldScore() {
@@ -212,9 +224,9 @@ public class SimulationResult {
             column2 = move.get(3);
          }
       }
-      String s = String.format("%s,%s -> %s,%s: %sg, %s score, %s combos, %s blocks, %s disruptions, %s mega progress, %s right side gold score",
+      String s = String.format("%s,%s -> %s,%s: %sg, %s score, %s combos, %s blocks, %s disruptions, %s mega progress, %s right side gold score, %s mega boosted score",
          row1, column1, row2, column2, gold, score, numCombosCleared, numBlocksCleared, numDisruptionsCleared,
-         megaProgress, rightSideGoldScore);
+         megaProgress, rightSideGoldScore, megaBoostedScore);
       return parent != null ? parent.toString() + '\n' + s : s;
    }
    

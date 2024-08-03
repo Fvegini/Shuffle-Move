@@ -18,6 +18,9 @@
 
 package shuffle.fwk.data.simulation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import shuffle.fwk.data.Board;
 import shuffle.fwk.data.PkmType;
 import shuffle.fwk.data.Species;
@@ -51,6 +54,8 @@ public class SimulationState {
    private boolean[][] original = new boolean[Board.NUM_ROWS][Board.NUM_COLS];
    
    private int fallingCount = 0;
+
+   private List<Species> comboSpeciesList = new ArrayList<Species>();
    
    /**
     * Creates a new SimulationState.
@@ -113,6 +118,14 @@ public class SimulationState {
       numCombos = other.numCombos;
    }
    
+   public List<Species> getComboSpeciesList() {
+      return comboSpeciesList;
+   }
+
+   public void addComboSpeciesList(Species specie) {
+      comboSpeciesList.add(specie);
+   }
+
    public SimulationCore getCore() {
       return core;
    }

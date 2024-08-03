@@ -28,6 +28,7 @@ import java.util.concurrent.RecursiveTask;
 
 import shuffle.fwk.data.Board;
 import shuffle.fwk.data.simulation.util.NumberSpan;
+import shuffle.fwk.data.Species;
 
 /**
  * @author Andrew Meyers
@@ -66,6 +67,7 @@ public class SimulationResultsAssembler extends RecursiveTask<SimulationResult> 
       NumberSpan combos = new NumberSpan();
       NumberSpan progress = new NumberSpan();
       NumberSpan rightSideGoldScore = new NumberSpan();
+      NumberSpan megaScore = new NumberSpan();
       
       // keeps track of all board chances, and the best one.
       Map<Board, Float> boardChances = new HashMap<Board, Float>();
@@ -78,6 +80,22 @@ public class SimulationResultsAssembler extends RecursiveTask<SimulationResult> 
             continue;
          }
          float weight = state.getWeight();
+         
+         boolean hasMegaInCombo = false;
+         if (state.isMegaActive()) {
+             for (Species item : state.getComboSpeciesList()) {
+                 if (state.getCore().getMegaSlot().equals(item)) {
+                     hasMegaInCombo = true;
+                     break;
+                 }
+             }
+         }
+         
+         if (hasMegaInCombo) {
+            megaScore = megaScore.put(state.getScore(), 1.5);
+         } else {
+            megaScore = megaScore.put(state.getScore());
+         }
          
          score = score.put(state.getScore());
          gold = gold.put(state.getGold(), weight);
@@ -100,7 +118,7 @@ public class SimulationResultsAssembler extends RecursiveTask<SimulationResult> 
       }
       SimulationResult result = null;
       if (likelyBoard != null) {
-         result = new SimulationResult(move, likelyBoard, score, gold, progress, processUUID, blocks, disrupts, combos, rightSideGoldScore,
+         result = new SimulationResult(move, likelyBoard, score, gold, progress, processUUID, blocks, disrupts, combos, rightSideGoldScore, megaScore,
                startTime);
       }
       return result;
