@@ -90,9 +90,17 @@ public class SimulationResultsAssembler extends RecursiveTask<SimulationResult> 
                  }
              }
          }
-         
+
+         // int disruptions_before = state.getBoard().getDisruptionsCount();
+         int disruptions_after = state.getResultBoard().getDisruptionsCount();
+         // int disruptions_remains = disruptions_before - disruptions_after;
+
          if (hasMegaInCombo) {
-            megaScore = megaScore.put(state.getScore(), 1.5);
+            if (disruptions_after <=2) {
+               megaScore = megaScore.put(state.getScore(), 1.5);
+            } else {
+               megaScore = megaScore.put(state.getScore(), 10);
+            }
          } else {
             megaScore = megaScore.put(state.getScore());
          }

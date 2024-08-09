@@ -152,6 +152,18 @@ public class Board {
       return megaProgress;
    }
 
+   public int getDisruptionsCount() {
+      int count = 0;
+      for (int row = 1; row <= NUM_ROWS; row++) {
+         for (int col = 1; col <= NUM_COLS; col++) {
+            if (isFrozenAt(row, col) || getSpeciesAt(row, col).getDefaultEffect().isDisruption()) {
+               count++;
+            }
+         }
+      }
+      return count;
+   }
+
    // Give right side column outcomes a score. The more desired,
    // results "should" have a higher score.
    public int getRightSideGoldScore() {
