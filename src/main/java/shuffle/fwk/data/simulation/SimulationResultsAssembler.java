@@ -91,9 +91,8 @@ public class SimulationResultsAssembler extends RecursiveTask<SimulationResult> 
              }
          }
 
-         // int disruptions_before = state.getBoard().getDisruptionsCount();
-         int disruptions_after = state.getResultBoard().getDisruptionsCount();
-         // int disruptions_remains = disruptions_before - disruptions_after;
+         Collection<Species> supports = task.getState().getCore().getSupportSpecies();
+         int disruptions_after = state.getResultBoard().getDisruptionsCount(supports);
 
          if (hasMegaInCombo) {
             if (disruptions_after <=2) {

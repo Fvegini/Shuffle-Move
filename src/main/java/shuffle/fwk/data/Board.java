@@ -152,11 +152,12 @@ public class Board {
       return megaProgress;
    }
 
-   public int getDisruptionsCount() {
+   public int getDisruptionsCount(Collection<Species> supports) {
       int count = 0;
       for (int row = 1; row <= NUM_ROWS; row++) {
          for (int col = 1; col <= NUM_COLS; col++) {
-            if (isFrozenAt(row, col) || getSpeciesAt(row, col).getDefaultEffect().isDisruption()) {
+            Species species = getSpeciesAt(row, col);
+            if (isFrozenAt(row, col) || species.getDefaultEffect().isDisruption() || !supports.contains(species)) {
                count++;
             }
          }
