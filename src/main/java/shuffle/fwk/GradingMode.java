@@ -39,13 +39,13 @@ import shuffle.fwk.i18n.I18nUser;
 public class GradingMode implements I18nUser {
    
    private static final List<String> DESC_KEYS = Arrays.asList("GOLD", "SCORE", "COMBOS", "DISRUPTIONS", "BLOCKS",
-         "PROGRESS", "MOVE", "NOCOIN", "GOLD_THRESHOLD", "COMBOS_THRESHOLD", "RIGHTSIDE_GOLD_SCORE", "SCORE_MEGA_BOOSTED");
+         "PROGRESS", "MOVE", "NOCOIN", "GOLD_THRESHOLD", "COMBOS_THRESHOLD", "RIGHTSIDE_GOLD_SCORE", "SCORE_MEGA_BOOSTED", "HAS_MEGA");
    private static final List<BiFunction<String, String, BiFunction<SimulationResult, SimulationResult, Integer>>> DESC_COMP = Arrays
          .asList((a, b) -> getGoldCompare(a, b), (a, b) -> getScoreCompare(a, b), (a, b) -> getCombosCompare(a, b),
                (a, b) -> getDisruptionsCompare(a, b), (a, b) -> getBlocksCompare(a, b),
                (a, b) -> getProgressCompare(a, b), (a, b) -> getMoveCompare(a, b), (a, b) -> getNoCoinCompare(a, b),
                (a, b) -> getThresholdGold(a, b), (a, b) -> getThresholdCombos(a, b), (a, b) -> getRightSideGoldScore(a, b),
-               (a, b) -> getMegaBoostedScoreCompare(a, b));
+               (a, b) -> getMegaBoostedScoreCompare(a, b), (a, b) -> getHasMegaCompare(a, b));
    private static final String DEFAULT_DESC = "GOLD,SCORE,COMBOS,DISRUPTIONS,BLOCKS,PROGRESS,MOVE";
    private static final Pattern DESC_KEY_PATTERN = Pattern.compile("^([+-]?)([\\d]*)(MIN|MAX)?[_]?([A-Z_]+)$");
    
@@ -97,6 +97,11 @@ public class GradingMode implements I18nUser {
          String minOrMax) {
       return getConditionalCompare(args, minOrMax, (r) -> r.getMegaBoostedScore());
    }
+
+   protected static BiFunction<SimulationResult, SimulationResult, Integer> getHasMegaCompare(String args,
+   String minOrMax) {
+return getConditionalCompare(args, minOrMax, (r) -> r.getHasMegaScore());
+}
 
    protected static BiFunction<SimulationResult, SimulationResult, Integer> getGoldCompare(String args,
          String minOrMax) {
