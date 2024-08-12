@@ -157,7 +157,7 @@ public class Board {
       for (int row = 1; row <= NUM_ROWS; row++) {
          for (int col = 1; col <= NUM_COLS; col++) {
             Species species = getSpeciesAt(row, col);
-            if (isFrozenAt(row, col) || species.getDefaultEffect().isDisruption() || !supports.contains(species)) {
+            if (isFrozenAt(row, col) || species.getDefaultEffect().isDisruption() || (!supports.contains(species) && !isAir(row, col))) {
                count++;
             }
          }
